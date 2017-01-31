@@ -1,0 +1,174 @@
+
+# VISUALIZATIONS IN R
+
+str(mtcars)
+
+plot(x= mtcars$wt, y=mtcars$mpg)
+
+
+
+plot(x=mtcars$wt, y=mtcars$mpg,
+     xlab="Weight in 1000s",
+     ylab="Miles per gallon",
+     main="MPG vs. Weight",
+     sub="mtcars data set",
+     xlim=c(0,8),
+     ylim=c(0,40))
+
+
+
+# specifying the type of dot on chart
+
+plot(x=mtcars$wt, y=mtcars$mpg,
+     xlab="Weight in 1000s",
+     ylab="Miles per gallon",
+     main="MPG vs. Weight",
+     sub="mtcars data set",
+     xlim=c(0,8),
+     ylim=c(0,40), pch=15)
+
+
+# specifying the color
+
+plot(x=mtcars$wt, y=mtcars$mpg,
+     xlab="Weight in 1000s",
+     ylab="Miles per gallon",
+     main="MPG vs. Weight",
+     sub="mtcars data set",
+     xlim=c(0,8),
+     ylim=c(0,40), pch=15, col="blue")
+
+
+# specifying color from palette
+
+plot(x=mtcars$wt, y=mtcars$mpg,
+     xlab="Weight in 1000s",
+     ylab="Miles per gallon",
+     main="MPG vs. Weight",
+     sub="mtcars data set",
+     xlim=c(0,8),
+     ylim=c(0,40), 
+     pch= 4,
+     col=palette()[4])
+
+
+#specifying color from rgb
+
+plot(x=mtcars$wt, y=mtcars$mpg,
+     xlab="Weight in 1000s",
+     ylab="Miles per gallon",
+     main="MPG vs. Weight",
+     col.main= rgb(100/255,125/255,67/255),
+     sub="mtcars data set",
+     xlim=c(0,8),
+     ylim=c(0,40))
+
+
+barplot(rep(c(1), times=8), col=1:8)
+
+cp<- palette()
+cp
+palette(c(cp,"brown", "purple"))
+barplot(rep(c(1),times=10), col= 1:10)
+
+install.packages("RColorBrewer", dependencies=TRUE)
+library(RColorBrewer)
+display.brewer.all()
+
+palette(brewer.pal(n=10, name="Set3"))
+barplot(rep(c(1),times=10), col= 1:10)
+
+
+
+
+#repeats color after 8 are finished
+
+palette(brewer.pal(n=10, name="Accent"))
+barplot(rep(c(1),times=10), col= 1:10)
+
+
+#changing text size
+
+plot(x=mtcars$wt, y=mtcars$mpg,
+     xlab="Weight in 1000s",
+     ylab="Miles per gallon",
+     cex.lab=1.5,
+     main="MPG vs. Weight",
+     col.main=rgb(125/255,17/255,12/255),
+     cex.main=2,
+     sub="mtcars data set",
+     cex.sub=.75,
+     xlim=c(0,8),
+     ylim=c(0,40),
+     pch=4,
+     col="blue1",
+     cex=2.0)
+
+
+#adding straight lines with abline()
+#abline doesn't work without the plot
+
+plot(x=mtcars$wt, y=mtcars$mpg,
+     xlab="Weight in 1000s",
+     ylab="Miles per gallon",
+     cex.lab=1.5,
+     main="MPG vs. Weight",
+     col.main="brown",
+     cex.main=2,
+     sub="mtcars data set",
+     cex.sub=1,
+     xlim=c(0,8),
+     ylim=c(0,40),
+     pch=16,
+     col="blue1",
+     cex=2.0
+     )
+abline(v=5, col="red")
+abline(h=20, col="blue")
+abline(a=10, b=2, col="green")
+
+
+#adding regression to the plot
+# ablines can only add straight lines
+
+plot(x=mtcars$wt, y=mtcars$mpg,
+     xlab="Weight in 1000s",
+     ylab="Miles per gallon",
+     cex.lab=1.5,
+     main="MPG vs. Weight",
+     col.main="brown",
+     cex.main=2,
+     sub="mtcars data set",
+     cex.sub=1,
+     xlim=c(0,8),
+     ylim=c(0,40),
+     pch=16,
+     col="blue1",
+     cex=1
+)
+regline <- lm(mtcars$mpg~mtcars$wt)
+regline
+abline(reg=regline, col="red", lty=1, lwd=2)
+
+
+
+#smoothed line with lowess() and lines()
+# tries to fit a smoothed line through the regression
+#takes a point and does a piece wise regression for that area and 
+#links to the next one (weighs the points)
+
+plot(x=mtcars$wt, y=mtcars$mpg,
+     xlab="Weight in 1000s",
+     ylab="Miles per gallon",
+     cex.lab=1.5,
+     main="MPG vs. Weight",
+     col.main=rgb(125/255,17/255,12/255),
+     cex.main=2,
+     sub="mtcars data set",
+     cex.sub=.75,
+     xlim=c(0,8),
+     ylim=c(0,40),
+     pch=4,
+     col="blue1",
+     cex=2.0)
+lines(lowess(y=mtcars$mpg,x=mtcars$wt,f=2/4), col="blue", lwd=3, lty=4)
