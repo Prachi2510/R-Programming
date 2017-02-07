@@ -1,0 +1,146 @@
+> setwd("C:\\Users\\TRCTHLATG00\\Desktop\\Spring '17\\Analytics- 579\\Rdata")
+> getwd()
+[1] "C:/Users/TRCTHLATG00/Desktop/Spring '17/Analytics- 579/Rdata"
+> real.estate <- read.csv("RealEstatePriceSqFt.csv", header=TRUE)
+> real.estate
+   ID Sales.Price Finished.square.feet
+1   1      360000                 3032
+2   2      340000                 2058
+3   3      250000                 1780
+4   4      205500                 1638
+5   5      275500                 2196
+6   6      248000                 1966
+7   7      229900                 2216
+8   8      150000                 1597
+9  10      160000                 1976
+10 11      200000                 2812
+11 12      400000                 2791
+12 13      450000                 3381
+13 14      525000                 3459
+14 18      335250                 2747
+15 19      323900                 2890
+16 20      200000                 1825
+17 22      212000                 1763
+18 23      245000                 2517
+19 26      170900                 2020
+20 27      229000                 2164
+21 30      259000                 3048
+> head(real.estate)
+  ID Sales.Price Finished.square.feet
+1  1      360000                 3032
+2  2      340000                 2058
+3  3      250000                 1780
+4  4      205500                 1638
+5  5      275500                 2196
+6  6      248000                 1966
+> tail(real.estate)
+   ID Sales.Price Finished.square.feet
+16 20      200000                 1825
+17 22      212000                 1763
+18 23      245000                 2517
+19 26      170900                 2020
+20 27      229000                 2164
+21 30      259000                 3048
+> plot(x=real.estate$Finished.square.feet, y= real.estate$Sales.Price)
+> model1.lm <- lm(Sales.Price ~ Finished.square.feet, data= real.estate)
+> model1.lm
+
+Call:
+lm(formula = Sales.Price ~ Finished.square.feet, data = real.estate)
+
+Coefficients:
+         (Intercept)  Finished.square.feet  
+            -40327.8                 132.6  
+
+> summary(model1.lm)
+
+Call:
+lm(formula = Sales.Price ~ Finished.square.feet, data = real.estate)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-132672  -23715   -1750   28554  107343 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -40327.79   59218.60  -0.681    0.504    
+Finished.square.feet    132.65      24.26   5.468 2.82e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 62760 on 19 degrees of freedom
+Multiple R-squared:  0.6115,	Adjusted R-squared:  0.591 
+F-statistic:  29.9 on 1 and 19 DF,  p-value: 2.825e-05
+
+> sumry<-summary(model1.lm)
+> sumry
+
+Call:
+lm(formula = Sales.Price ~ Finished.square.feet, data = real.estate)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-132672  -23715   -1750   28554  107343 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -40327.79   59218.60  -0.681    0.504    
+Finished.square.feet    132.65      24.26   5.468 2.82e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 62760 on 19 degrees of freedom
+Multiple R-squared:  0.6115,	Adjusted R-squared:  0.591 
+F-statistic:  29.9 on 1 and 19 DF,  p-value: 2.825e-05
+
+> str(sumry)
+List of 11
+ $ call         : language lm(formula = Sales.Price ~ Finished.square.feet, data = real.estate)
+ $ terms        :Classes 'terms', 'formula'  language Sales.Price ~ Finished.square.feet
+  .. ..- attr(*, "variables")= language list(Sales.Price, Finished.square.feet)
+  .. ..- attr(*, "factors")= int [1:2, 1] 0 1
+  .. .. ..- attr(*, "dimnames")=List of 2
+  .. .. .. ..$ : chr [1:2] "Sales.Price" "Finished.square.feet"
+  .. .. .. ..$ : chr "Finished.square.feet"
+  .. ..- attr(*, "term.labels")= chr "Finished.square.feet"
+  .. ..- attr(*, "order")= int 1
+  .. ..- attr(*, "intercept")= int 1
+  .. ..- attr(*, "response")= int 1
+  .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
+  .. ..- attr(*, "predvars")= language list(Sales.Price, Finished.square.feet)
+  .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
+  .. .. ..- attr(*, "names")= chr [1:2] "Sales.Price" "Finished.square.feet"
+ $ residuals    : Named num [1:21] -1854 107343 54219 28554 24538 ...
+  ..- attr(*, "names")= chr [1:21] "1" "2" "3" "4" ...
+ $ coefficients : num [1:2, 1:4] -4.03e+04 1.33e+02 5.92e+04 2.43e+01 -6.81e-01 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:2] "(Intercept)" "Finished.square.feet"
+  .. ..$ : chr [1:4] "Estimate" "Std. Error" "t value" "Pr(>|t|)"
+ $ aliased      : Named logi [1:2] FALSE FALSE
+  ..- attr(*, "names")= chr [1:2] "(Intercept)" "Finished.square.feet"
+ $ sigma        : num 62761
+ $ df           : int [1:3] 2 19 2
+ $ r.squared    : num 0.611
+ $ adj.r.squared: num 0.591
+ $ fstatistic   : Named num [1:3] 29.9 1 19
+  ..- attr(*, "names")= chr [1:3] "value" "numdf" "dendf"
+ $ cov.unscaled : num [1:2, 1:2] 8.90e-01 -3.55e-04 -3.55e-04 1.49e-07
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:2] "(Intercept)" "Finished.square.feet"
+  .. ..$ : chr [1:2] "(Intercept)" "Finished.square.feet"
+ - attr(*, "class")= chr "summary.lm"
+ > sumry$call
+lm(formula = Sales.Price ~ Finished.square.feet, data = real.estate)
+> rs<- sumry$r.squared
+> rs
+[1] 0.6114606
+> fstat <- sumry.fstatistics
+Error: object 'sumry.fstatistics' not found
+> fstat <- sumry$fstatistic
+> fstat
+  value   numdf   dendf 
+29.9011  1.0000 19.0000 
+> predictions <- predict(model1.lm,real.estate)
+> plot(x= predictions, y= real.estate$Sales.Price)
+> resids <- sumry$residuals
+> plot(x= predictions, y= resids)
