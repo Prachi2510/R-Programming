@@ -1,0 +1,19 @@
+#1
+cafedata <- read.csv("C://Users//TRCTHLATG00//Desktop//Spring '17//
+                     Analytics- 579//Rdata//CafeStandardsData.csv")
+summary(cafedata$Vote)
+Against Increase Support Increase 
+62               37 
+
+#2
+install.packages("gmodels")
+library(gmodels)
+??CrossTable
+cross.tab <- CrossTable(cafedata$Party, cafedata$Vote)
+
+#3
+t.test(cafedata$Amount~cafedata$Vote)
+
+#4
+t.test(cafedata$Amount~cafedata$Party)
+
